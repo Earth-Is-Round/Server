@@ -8,7 +8,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
 
-public class DeniedExceptionHandler implements AccessDeniedHandler {
+class DeniedExceptionHandler implements AccessDeniedHandler {
   @Override
   public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
     response.setContentType("application/json;charset=UTF-8");

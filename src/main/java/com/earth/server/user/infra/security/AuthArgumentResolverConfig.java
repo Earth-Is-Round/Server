@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class AuthArgumentResolverConfig implements WebMvcConfigurer {
+class AuthArgumentResolverConfig implements WebMvcConfigurer {
   private final HandlerMethodArgumentResolver handlerMethodArgumentResolver;
 
   @Override

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfig {
+class SecurityConfig {
 
   @Bean
   AccessDeniedHandler accessDeniedHandler() {
