@@ -1,5 +1,6 @@
 package com.earth.server.user.infra.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,15 +15,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 @Configuration
 class SecurityConfig {
-
   @Bean
-  AccessDeniedHandler accessDeniedHandler() {
-    return new DeniedExceptionHandler();
+  AccessDeniedHandler accessDeniedHandler(ObjectMapper mapper) {
+    return new DeniedExceptionHandler(mapper);
   }
 
   @Bean
-  AuthenticationEntryPoint authenticationEntryPoint() {
-    return new EntryPointExceptionHandler();
+  AuthenticationEntryPoint authenticationEntryPoint(ObjectMapper mapper) {
+    return new EntryPointExceptionHandler(mapper);
   }
 
   @Bean
