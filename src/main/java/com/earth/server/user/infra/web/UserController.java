@@ -1,5 +1,6 @@
 package com.earth.server.user.infra.web;
 
+import com.earth.server.common.infra.JsonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   @PostMapping("/login")
-  public ResponseEntity<String> login() {
-    return ResponseEntity.ok("login");
+  public ResponseEntity<?> login() {
+    return JsonResponse.ok("login");
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<String> signup() {
-    return ResponseEntity.ok("sing up");
+  public ResponseEntity<?> signup() {
+    return JsonResponse.noContent();
   }
 }
