@@ -29,7 +29,7 @@ class LoginUseCaseTest {
   );
 
   @Test
-  @DisplayName("nickname 에 해당하는 유저가 없으면 DomainException 을 던진다.")
+  @DisplayName("nickname 에 해당하는 유저가 없으면, DomainException 을 던진다.")
   void not_exist_user() {
     given(userRepository.find(anyString())).willReturn(Optional.empty());
 
@@ -37,7 +37,7 @@ class LoginUseCaseTest {
   }
 
   @Test
-  @DisplayName("입력한 password 가 일치하지 않으면 DomainException 을 던진다.")
+  @DisplayName("입력한 password 가 일치하지 않으면, DomainException 을 던진다.")
   void not_match_password() {
     given(userRepository.find(anyString())).willReturn(Optional.of(defaultUser));
     given(passwordEncoder.matches(anyString(), anyString())).willReturn(false);

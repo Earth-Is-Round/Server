@@ -1,7 +1,7 @@
 package com.earth.server.common.domain;
 
 public enum ErrorCode {
-  DUPLICATE_ID,
+  DUPLICATE_NICKNAME,
   ACCESS_DENY,
   UNAUTHORIZED,
   EXPIRE_TOKEN,
