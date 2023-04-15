@@ -4,5 +4,5 @@ import java.util.Optional;
 
 public interface UserRepository {
   void add(String nickname, String encodedPassword);
-  Optional<UserInfo> find(String nickname);
+  Optional<User> find(String nickname);
 }

@@ -1,6 +1,6 @@
 package com.earth.server.user.infra.security.jwt;
 
-import com.earth.server.user.domain.UserInfo;
+import com.earth.server.user.domain.UserId;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,9 +20,9 @@ public class JwtResolver {
   public Authentication getAuthentication(String accessToken) {
     Claims claims = jwtParser.parseClaimsJws(accessToken).getBody();
 
-    UserInfo tempUserInfo = new UserInfo(Long.parseLong(claims.get("id").toString()), "george");
+    UserId tempUserId = new UserId(Long.parseLong(claims.get("id").toString()));
 
-    return new UsernamePasswordAuthenticationToken(tempUserInfo, null, null);
+    return new UsernamePasswordAuthenticationToken(tempUserId, null, null);
   }
 
   public boolean validateToken(String token) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException {

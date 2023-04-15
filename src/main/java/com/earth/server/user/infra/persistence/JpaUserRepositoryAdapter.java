@@ -1,6 +1,7 @@
 package com.earth.server.user.infra.persistence;
 
-import com.earth.server.user.domain.UserInfo;
+import com.earth.server.user.domain.User;
+import com.earth.server.user.domain.UserId;
 import com.earth.server.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -16,11 +17,11 @@ public class JpaUserRepositoryAdapter implements UserRepository {
   }
 
   @Override
-  public Optional<UserInfo> find(String nickname) {
+  public Optional<User> find(String nickname) {
     var optionalEntity = jpaUserRepository.findByNickname(nickname);
     if (optionalEntity.isPresent()) {
       var entity = optionalEntity.get();
-      return Optional.of(new UserInfo(entity.getId(), entity.getNickname()));
+      return Optional.of(new User(new UserId(entity.getId()), entity.getNickname(), entity.getPassword()));
     }
 
     return Optional.empty();
