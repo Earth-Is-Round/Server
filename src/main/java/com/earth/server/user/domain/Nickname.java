@@ -6,10 +6,10 @@ import java.util.regex.Pattern;
 
 import static com.earth.server.common.domain.ErrorCode.INVALID_NICKNAME;
 
-record Nickname(String value) {
+public record Nickname(String value) {
   private static final Pattern pattern = Pattern.compile("^[a-zA-Z]{4,12}$");
 
-  Nickname {
+  public Nickname {
     if (!pattern.matcher(value).matches()) {
       throw new DomainException(INVALID_NICKNAME);
     }
