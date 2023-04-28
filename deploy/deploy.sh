@@ -2,7 +2,9 @@ echo "=> Remove previous container..."
 docker rm -f earth-is-round
 
 # build 성공/실패 여부에 따라 분기
-if [ $? == 1 ]; then
+docker build -t earth-is-round .
+if [ $? = 1 ]
+then
   echo "=> Build Fail ☠️"
   exit 1
 else
