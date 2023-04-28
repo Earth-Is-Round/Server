@@ -1,4 +1,6 @@
 package com.earth.server.user.infra.web;
 
-public record JsonSignUpRequest(String nickname, String password) {
+import jakarta.validation.constraints.NotNull;
+
+public record JsonSignUpRequest(@NotNull String nickname, @NotNull String password) {
 }

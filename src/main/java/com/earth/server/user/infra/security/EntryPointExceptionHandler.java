@@ -21,6 +21,6 @@ class EntryPointExceptionHandler implements AuthenticationEntryPoint {
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
     response.setContentType("application/json;charset=UTF-8");
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-    response.getWriter().write(objectMapper.writeValueAsString(new ResponseBody(UNAUTHORIZED)));
+    response.getWriter().write(objectMapper.writeValueAsString(new ResponseBody(null, UNAUTHORIZED)));
   }
 }

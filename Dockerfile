@@ -5,7 +5,7 @@ COPY build.gradle .
 COPY settings.gradle .
 COPY src src
 RUN chmod +x ./gradlew
-RUN ./gradlew bootJar
+RUN ./gradlew build
 
 FROM docker.io/library/openjdk:17-slim as app
 COPY --from=build /build/libs/*.jar app.jar

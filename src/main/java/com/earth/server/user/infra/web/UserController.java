@@ -2,6 +2,7 @@ package com.earth.server.user.infra.web;
 
 import com.earth.server.common.infra.JsonResponse;
 import com.earth.server.user.domain.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +16,17 @@ public class UserController {
   private final JsonResponseMapper mapper;
 
   @PostMapping("/login")
-  public ResponseEntity<?> login(@RequestBody JsonLoginRequest request) {
+  public ResponseEntity<?> login(@Valid @RequestBody JsonLoginRequest request) {
     var loginUser = loginUseCase.run(new Nickname(request.nickname()), new Password(request.password()));
 
     return JsonResponse.ok(mapper.toLoginResponse(loginUser));
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<?> signUp(@RequestBody JsonSignUpRequest request) {
+  public ResponseEntity<?> signUp(@Valid @RequestBody JsonSignUpRequest request) {
     signUpUseCase.run(new Nickname(request.nickname()), new Password(request.password()));
 
-    return JsonResponse.noContent();
+    return JsonResponse.created();
   }
 
   // TODO: test 용 api, 추후 지우기
