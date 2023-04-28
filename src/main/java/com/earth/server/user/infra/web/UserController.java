@@ -25,7 +25,7 @@ public class UserController {
   public ResponseEntity<?> signUp(@RequestBody JsonSignUpRequest request) {
     signUpUseCase.run(new Nickname(request.nickname()), new Password(request.password()));
 
-    return JsonResponse.noContent();
+    return JsonResponse.created();
   }
 
   // TODO: test 용 api, 추후 지우기
