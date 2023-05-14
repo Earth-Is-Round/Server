@@ -6,4 +6,5 @@ public interface UserRepository {
   void add(String nickname, String encodedPassword);
   Optional<User> find(String nickname);
   void edit(UserId id, Nickname nickname);
+  void edit(UserId id, String encodedPassword);
 }

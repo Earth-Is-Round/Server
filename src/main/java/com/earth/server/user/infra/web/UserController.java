@@ -3,8 +3,6 @@ package com.earth.server.user.infra.web;
 import com.earth.server.common.infra.JsonResponse;
 import com.earth.server.user.domain.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +14,7 @@ public class UserController {
   private final SignUpUseCase signUpUseCase;
   private final LoginUseCase loginUseCase;
   private final EditNicknameUseCase editNicknameUseCase;
+  private final EditPasswordUseCase editPasswordUseCase;
   private final JsonResponseMapper mapper;
 
   @PostMapping("/login")
@@ -36,8 +35,17 @@ public class UserController {
   public ResponseEntity<?> editNickname(
     @RequestParam("nickname") String nickname,
     @Auth UserId userId
-    ) {
+  ) {
     editNicknameUseCase.run(userId, new Nickname(nickname));
+    return JsonResponse.okWithNoData();
+  }
+
+  @PatchMapping("/password")
+  public ResponseEntity<?> editPassword(
+    @Valid @RequestBody JsonEditPasswordRequest request,
+    @Auth UserId userId
+  ) {
+    editPasswordUseCase.run(userId, new Password(request.password()));
     return JsonResponse.okWithNoData();
   }
 

@@ -38,4 +38,11 @@ public class JpaUserRepositoryAdapter implements UserRepository {
 
     userEntity.setNickname(nickname.value());
   }
+
+  @Override
+  public void edit(UserId id, String encodedPassword) {
+    var userEntity = jpaUserRepository.findById(id.value()).orElseThrow(() -> new DomainException(NOT_EXIST_USER));
+
+    userEntity.setPassword(encodedPassword);
+  }
 }

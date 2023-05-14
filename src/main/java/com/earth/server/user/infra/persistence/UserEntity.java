@@ -23,6 +23,7 @@ public class UserEntity {
   @Setter
   private String nickname;
 
+  @Setter
   private String password;
 
   @CreatedDate

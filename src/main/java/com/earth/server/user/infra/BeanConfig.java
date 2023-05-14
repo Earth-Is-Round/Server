@@ -31,6 +31,11 @@ public class BeanConfig {
   }
 
   @Bean
+  EditPasswordUseCase editPasswordUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    return new EditPasswordUseCase(userRepository, passwordEncoder);
+  }
+
+  @Bean
   JsonResponseMapper responseMapper(GenerateToken generateToken) {
     return new JsonResponseMapper(generateToken);
   }

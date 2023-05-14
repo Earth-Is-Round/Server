@@ -15,6 +15,7 @@ import static org.mockito.Mockito.times;
 class EditNicknameUseCaseTest {
   private final UserRepository userRepository = mock(UserRepository.class);
   private final EditNicknameUseCase editNicknameUseCase = new EditNicknameUseCase(userRepository);
+
   private final UserId defaultUserId = new UserId(1L);
   private final Nickname defaultNickname = new Nickname("george");
   private final User defaultUser = new User(
@@ -40,6 +41,6 @@ class EditNicknameUseCaseTest {
 
     var inOrder = inOrder(userRepository);
     inOrder.verify(userRepository, times(1)).find(anyString());
-    inOrder.verify(userRepository, times(1)).edit(any(), any());
+    inOrder.verify(userRepository, times(1)).edit(any(UserId.class), any(Nickname.class));
   }
 }
