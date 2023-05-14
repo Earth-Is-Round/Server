@@ -1,9 +1,6 @@
 package com.earth.server.user.infra;
 
-import com.earth.server.user.domain.GenerateToken;
-import com.earth.server.user.domain.LoginUseCase;
-import com.earth.server.user.domain.SignUpUseCase;
-import com.earth.server.user.domain.UserRepository;
+import com.earth.server.user.domain.*;
 import com.earth.server.user.infra.persistence.JpaUserRepository;
 import com.earth.server.user.infra.persistence.JpaUserRepositoryAdapter;
 import com.earth.server.user.infra.web.JsonResponseMapper;
@@ -26,6 +23,11 @@ public class BeanConfig {
   @Bean
   LoginUseCase loginUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
     return new LoginUseCase(userRepository, passwordEncoder);
+  }
+
+  @Bean
+  EditNicknameUseCase editNicknameUseCase(UserRepository userRepository) {
+    return new EditNicknameUseCase(userRepository);
   }
 
   @Bean
