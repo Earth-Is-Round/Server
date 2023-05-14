@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
   private final SignUpUseCase signUpUseCase;
   private final LoginUseCase loginUseCase;
+  private final EditNicknameUseCase editNicknameUseCase;
+  private final EditPasswordUseCase editPasswordUseCase;
   private final JsonResponseMapper mapper;
 
   @PostMapping("/login")
@@ -29,9 +31,27 @@ public class UserController {
     return JsonResponse.created();
   }
 
+  @PatchMapping
+  public ResponseEntity<?> editNickname(
+    @RequestParam("nickname") String nickname,
+    @Auth UserId userId
+  ) {
+    editNicknameUseCase.run(userId, new Nickname(nickname));
+    return JsonResponse.okWithNoData();
+  }
+
+  @PatchMapping("/password")
+  public ResponseEntity<?> editPassword(
+    @Valid @RequestBody JsonEditPasswordRequest request,
+    @Auth UserId userId
+  ) {
+    editPasswordUseCase.run(userId, new Password(request.password()));
+    return JsonResponse.okWithNoData();
+  }
+
   // TODO: test 용 api, 추후 지우기
   @GetMapping("/test")
-  public ResponseEntity<?> test(@Auth UserId id){
+  public ResponseEntity<?> test(@Auth UserId id) {
     return JsonResponse.ok(id);
   }
 }

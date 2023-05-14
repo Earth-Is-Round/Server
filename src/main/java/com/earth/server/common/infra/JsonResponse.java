@@ -17,6 +17,10 @@ public class JsonResponse {
     return ResponseEntity.ok(new ResponseBody(data, null));
   }
 
+  public static ResponseEntity<?> okWithNoData() {
+    return ResponseEntity.ok(new ResponseBody(null, null));
+  }
+
   public static ResponseEntity<?> created() {
     return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseBody(null, null));
   }
