@@ -1,6 +1,7 @@
 package com.earth.server.core.controller;
 
 import com.earth.server.common.infra.JsonResponse;
+import com.earth.server.core.dto.CalculateRequest;
 import com.earth.server.core.dto.StepRequest;
 import com.earth.server.core.service.CoreService;
 import com.earth.server.user.domain.Auth;
@@ -20,5 +21,11 @@ public class CoreController {
     @PostMapping("/apis/steps")
     public ResponseEntity<?> recordSteps(@Valid @RequestBody StepRequest request, @Auth UserId userId) {
         return JsonResponse.ok(coreService.recordSteps(userId, request));
+    }
+
+    @PostMapping("/apis/snowmen")
+    public ResponseEntity<?> calculateSnowmen(@Valid @RequestBody CalculateRequest request, @Auth UserId userId) {
+        coreService.calculateSnowmen(userId, request);
+        return JsonResponse.okWithNoData();
     }
 }

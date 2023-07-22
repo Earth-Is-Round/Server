@@ -20,7 +20,9 @@ public class StepEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+    @Column(nullable = false)
     private LocalDate date;
+    @Column(nullable = false)
     private Integer count;
 
     public StepEntity(UserEntity user, LocalDate date, Integer count) {

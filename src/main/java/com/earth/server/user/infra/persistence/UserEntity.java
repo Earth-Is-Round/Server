@@ -20,9 +20,11 @@ public class UserEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(nullable = false)
   @Setter
   private String nickname;
 
+  @Column(nullable = false)
   @Setter
   private String password;
 
