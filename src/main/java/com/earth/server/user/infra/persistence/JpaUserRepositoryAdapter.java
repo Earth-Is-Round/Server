@@ -11,7 +11,6 @@ import java.util.Optional;
 
 import static com.earth.server.common.domain.ErrorCode.NOT_EXIST_USER;
 
-// TODO: 추후 JPA 테스트 추가해도 될 듯
 @RequiredArgsConstructor
 public class JpaUserRepositoryAdapter implements UserRepository {
   private final JpaUserRepository jpaUserRepository;
@@ -30,6 +29,11 @@ public class JpaUserRepositoryAdapter implements UserRepository {
     }
 
     return Optional.empty();
+  }
+
+  @Override
+  public Optional<UserEntity> find(Long id) {
+    return jpaUserRepository.findById(id);
   }
 
   @Override
