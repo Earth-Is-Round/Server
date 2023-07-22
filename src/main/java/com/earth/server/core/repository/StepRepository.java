@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface StepRepository extends JpaRepository<StepEntity, Long> {
-    Optional<StepEntity> findByDateAndUser(LocalDate date, UserEntity user);
+    Optional<StepEntity> findByUserAndDate(UserEntity user, LocalDate date);
 }

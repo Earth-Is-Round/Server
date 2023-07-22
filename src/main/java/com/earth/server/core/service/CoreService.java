@@ -41,7 +41,7 @@ public class CoreService {
         return new ItemsResponse(request.steps()
                 .stream()
                 .flatMap(step -> {
-                    Optional<StepEntity> prevStep = stepRepository.findByDateAndUser(step.date(), user);
+                    Optional<StepEntity> prevStep = stepRepository.findByUserAndDate(user, step.date());
                     if (prevStep.isPresent()) {
                         return Stream.empty();
                     }
