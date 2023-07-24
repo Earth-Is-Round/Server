@@ -1,11 +1,15 @@
 package com.earth.server.user.infra.web;
 
+import com.earth.server.common.domain.DomainException;
 import com.earth.server.common.infra.JsonResponse;
 import com.earth.server.user.domain.*;
+import com.earth.server.user.infra.persistence.JpaUserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.earth.server.common.domain.ErrorCode.NOT_EXIST_USER;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,6 +19,7 @@ public class UserController {
   private final LoginUseCase loginUseCase;
   private final EditNicknameUseCase editNicknameUseCase;
   private final EditPasswordUseCase editPasswordUseCase;
+  private final JpaUserRepository jpaUserRepository;
   private final JsonResponseMapper mapper;
 
   @PostMapping("/login")
@@ -46,6 +51,12 @@ public class UserController {
     @Auth UserId userId
   ) {
     editPasswordUseCase.run(userId, new Password(request.password()));
+    return JsonResponse.okWithNoData();
+  }
+
+  @DeleteMapping
+  public ResponseEntity<?> deleteUser(@Auth UserId id) {
+    jpaUserRepository.delete(jpaUserRepository.findById(id.value()).orElseThrow(() -> new DomainException(NOT_EXIST_USER)));
     return JsonResponse.okWithNoData();
   }
 
