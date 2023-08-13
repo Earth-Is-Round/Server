@@ -8,10 +8,11 @@ import com.earth.server.user.domain.Auth;
 import com.earth.server.user.domain.UserId;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,5 +28,15 @@ public class CoreController {
     public ResponseEntity<?> calculateSnowmen(@Valid @RequestBody CalculateRequest request, @Auth UserId userId) {
         coreService.calculateSnowmen(userId, request);
         return JsonResponse.okWithNoData();
+    }
+
+    @GetMapping("/apis/records")
+    public ResponseEntity<?> getRecord(
+            @RequestParam("startDate")
+            @DateTimeFormat(pattern = "yyyy-MM-dd")
+            LocalDate startDate,
+            @Auth UserId userId
+    ) {
+        return JsonResponse.ok(coreService.getRecord(userId, startDate));
     }
 }

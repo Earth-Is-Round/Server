@@ -114,4 +114,31 @@ public class CoreService {
         }
         return items;
     }
+
+    public RecordResponse getRecord(UserId userId, LocalDate startDate) {
+        UserEntity user = getUser(userId);
+        SnowmanEntity snowman = snowmanRepository.findByUserAndStartDate(user, startDate).orElseThrow(() -> new DomainException(INVALID_REQUEST));
+        List<ItemEntity> pickedUpItems = itemRepository.findAllByUserAndDateBetween(
+                user,
+                snowman.getStartDate(),
+                snowman.getEndDate()
+        );
+        List<ItemEntity> usedItems = pickedUpItems.stream().filter(entity -> entity.getSnowman() != null).toList();
+        List<StepEntity> steps = stepRepository.findAllByUserAndDateBetweenOrderByDateAsc(
+                user,
+                snowman.getStartDate(),
+                snowman.getEndDate());
+
+        return new RecordResponse(
+                pickedUpItems
+                        .stream()
+                        .map(entity -> new Item(entity.getName(), entity.getDate()))
+                        .toList(),
+                steps.stream().map(entity -> {
+                    System.out.println(entity.getDate());
+                    return entity.getCount();
+                }).toList(),
+                new Snowman(snowman, usedItems)
+        );
+    }
 }
