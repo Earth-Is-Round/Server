@@ -135,7 +135,6 @@ public class CoreService {
                         .map(entity -> new Item(entity.getName(), entity.getDate()))
                         .toList(),
                 steps.stream().map(entity -> {
-                    System.out.println(entity.getDate());
                     return entity.getCount();
                 }).toList(),
                 new Snowman(snowman, usedItems)

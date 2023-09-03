@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
     List<ItemEntity> findAllByUserAndDateBetween(UserEntity user, LocalDate startDate, LocalDate endDate);
-    List<ItemEntity> findAllByUserAndSnowmanAndDateBetween(UserEntity user, SnowmanEntity snowman, LocalDate startDate, LocalDate endDate);
 }
