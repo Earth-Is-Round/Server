@@ -153,7 +153,7 @@ public class CoreService {
     public SnowmanRecordListResponse getRecords(UserId userId, LocalDate maxDate) {
         UserEntity user = getUser(userId);
         // 최대 10개의 눈사람만 조회
-        List<SnowmanEntity> snowmen = snowmanRepository.findFirst10ByUserAndStartDateLessThanEqual(user, maxDate);
+        List<SnowmanEntity> snowmen = snowmanRepository.findFirst10ByUserAndStartDateLessThanEqualOrderByStartDateDesc(user, maxDate);
         long snowmanCount = snowmanRepository.countByUserAndStartDateLessThanEqual(user, maxDate);
 
         return new SnowmanRecordListResponse(
