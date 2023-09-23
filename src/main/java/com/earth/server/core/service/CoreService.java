@@ -39,7 +39,10 @@ public class CoreService {
                 .flatMap(step -> {
                     Optional<StepEntity> prevStep = stepRepository.findByUserAndDate(user, step.date());
                     if (prevStep.isPresent()) {
-                        return Stream.empty();
+                        // getPickedItems 은 테스트를 위한 로직
+                        return getPickedItems(step, user);
+                        // TODO: 아래가 정상 로직, 테스트가 끝나면 아래로 수정.
+                        // return Stream.empty();
                     }
                     stepRepository.save(new StepEntity(user, step.date(), step.count()));
 
@@ -58,6 +61,14 @@ public class CoreService {
                     return makeRandomItems(user, 4, step.date()).stream();
                 })
                 .toList());
+    }
+
+    private Stream<Item> getPickedItems(Step step, UserEntity user) {
+        List<ItemEntity> pickedItems = itemRepository.findAllByUserAndDate(user, step.date());
+        return pickedItems.stream()
+                .map(itemEntity -> new Item(itemEntity.getName(), itemEntity.getDate()))
+                .toList()
+                .stream();
     }
 
     public void calculateSnowmen(UserId userId, CalculateRequest request) {
