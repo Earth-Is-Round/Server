@@ -39,4 +39,14 @@ public class CoreController {
     ) {
         return JsonResponse.ok(coreService.getRecord(userId, startDate));
     }
+
+    @GetMapping("/apis/records/list")
+    public ResponseEntity<?> getRecords(
+            @RequestParam("maxDate")
+            @DateTimeFormat(pattern = "yyyy-MM-dd")
+            LocalDate maxDate,
+            @Auth UserId userId
+    ) {
+        return JsonResponse.ok(coreService.getRecords(userId, maxDate));
+    }
 }

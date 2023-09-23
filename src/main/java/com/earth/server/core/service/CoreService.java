@@ -145,10 +145,30 @@ public class CoreService {
                         .stream()
                         .map(entity -> new Item(entity.getName(), entity.getDate()))
                         .toList(),
-                steps.stream().map(entity -> {
-                    return entity.getCount();
-                }).toList(),
+                steps.stream().map(StepEntity::getCount).toList(),
                 new Snowman(snowman, usedItems)
+        );
+    }
+
+    public SnowmanRecordListResponse getRecords(UserId userId, LocalDate maxDate) {
+        UserEntity user = getUser(userId);
+        // 최대 10개의 눈사람만 조회
+        List<SnowmanEntity> snowmen = snowmanRepository.findFirst10ByUserAndStartDateLessThanEqualOrderByStartDateDesc(user, maxDate);
+        long snowmanCount = snowmanRepository.countByUserAndStartDateLessThanEqual(user, maxDate);
+
+        return new SnowmanRecordListResponse(
+                snowmanCount,
+                snowmen.stream()
+                        .map(snowmanEntity -> {
+                            List<ItemEntity> pickedUpItems = itemRepository.findAllByUserAndDateBetween(
+                                    user,
+                                    snowmanEntity.getStartDate(),
+                                    snowmanEntity.getEndDate()
+                            );
+                            List<ItemEntity> usedItems = pickedUpItems.stream().filter(entity -> entity.getSnowman() != null).toList();
+                            return new Snowman(snowmanEntity, usedItems);
+                        })
+                        .toList()
         );
     }
 }
