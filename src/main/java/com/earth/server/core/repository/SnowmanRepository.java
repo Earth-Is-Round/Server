@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SnowmanRepository extends JpaRepository<SnowmanEntity, Long> {
-    Optional<SnowmanEntity> findByUserAndStartDate(UserEntity user, LocalDate startDate);
+    Optional<SnowmanEntity> findTopByUserAndStartDateOrderByIdDesc(UserEntity user, LocalDate startDate);
     Long countByUserAndStartDateLessThanEqual(UserEntity user, LocalDate startDate);
     List<SnowmanEntity> findFirst10ByUserAndStartDateLessThanEqualOrderByStartDateDesc(UserEntity user, LocalDate startDate);
 }

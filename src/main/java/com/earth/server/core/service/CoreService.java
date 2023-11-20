@@ -84,6 +84,7 @@ public class CoreService {
                         throw new DomainException(INVALID_REQUEST);
                     }
 
+                    // TODO: 여기서 findTop1ByUserAndStartDateOrderByIdDesc 로 정산한 기록이 있는지 검증 로직 추가 필요
                     SnowmanEntity newSnowman = snowmanRepository.save(new SnowmanEntity(
                             calculating.calculateDate().minusDays(6),
                             calculating.calculateDate(),
@@ -128,7 +129,7 @@ public class CoreService {
 
     public RecordResponse getRecord(UserId userId, LocalDate startDate) {
         UserEntity user = getUser(userId);
-        SnowmanEntity snowman = snowmanRepository.findByUserAndStartDate(user, startDate).orElseThrow(() -> new DomainException(INVALID_REQUEST));
+        SnowmanEntity snowman = snowmanRepository.findTopByUserAndStartDateOrderByIdDesc(user, startDate).orElseThrow(() -> new DomainException(INVALID_REQUEST));
         List<ItemEntity> pickedUpItems = itemRepository.findAllByUserAndDateBetween(
                 user,
                 snowman.getStartDate(),

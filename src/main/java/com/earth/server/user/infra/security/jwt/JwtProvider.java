@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider implements GenerateToken {
   private final JwtSecretKey secretKey;
-  private static final Period EXPIRATION_PERIOD = Period.ofDays(30);
+  private static final Period EXPIRATION_PERIOD = Period.ofDays(60);
 
   @Override
   public Token makeToken(Long id) {
